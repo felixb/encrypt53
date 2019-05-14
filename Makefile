@@ -1,8 +1,7 @@
 .PHONY: all build clean test
 
-.get-deps: *.go
+.get-deps: mocks *.go
 	go get -t -d -v ./...
-	go get github.com/vektra/mockery/.../
 	touch .get-deps
 
 all: test build handler.zip
@@ -17,6 +16,7 @@ clean:
 
 mocks:
 	rm -rf mocks
+	go get github.com/vektra/mockery/.../
 	mockery -dir ../../aws/aws-sdk-go/service/route53/*iface -all
 	mockery -dir ../../aws/aws-sdk-go/service/s3/*iface -all
 	mockery -dir ../../aws/aws-sdk-go/service/sns/*iface -all
